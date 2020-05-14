@@ -64,14 +64,14 @@ public class UserController {
     }
 
     @PostMapping(value = "/weeklyReport")
-    public ResponseEntity<StringObj> weeklyReport(@RequestHeader("userId") String id) {
-        StringObj stringObj = userService.generateWeeklyReport(Integer.parseInt(id));
+    public ResponseEntity<StringObj> weeklyReport(@RequestBody Integer excess, @RequestHeader("userId") String id) {
+        StringObj stringObj = userService.generateWeeklyReport(excess, Integer.parseInt(id));
         return new ResponseEntity(stringObj, HttpStatus.OK);
     }
 
     @PostMapping(value = "/monthlyReport")
-    public ResponseEntity<StringObj> monthlyReport(@RequestHeader("userId") String id) {
-        StringObj stringObj = userService.generateMonthlyReport(Integer.parseInt(id));
+    public ResponseEntity<StringObj> monthlyReport(@RequestBody Integer excess, @RequestHeader("userId") String id) {
+        StringObj stringObj = userService.generateMonthlyReport(excess, Integer.parseInt(id));
         return new ResponseEntity(stringObj, HttpStatus.OK);
     }
 }

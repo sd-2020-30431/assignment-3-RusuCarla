@@ -1,5 +1,7 @@
 package com.assignment.business_layer.services;
 
+import com.assignment.business_layer.report.GreenDecorator;
+import com.assignment.business_layer.report.RedDecorator;
 import com.assignment.presentation_layer.dto.*;
 import com.assignment.persistence_layer.repository.LoginRepository;
 import com.assignment.persistence_layer.repository.*;
@@ -61,19 +63,31 @@ public class UserService {
     }
 
     @Transactional
-    public StringObj generateWeeklyReport(int id){
+    public StringObj generateWeeklyReport(int excess, int id){
         Login login = loginRepository.findById(id);
         AbstractFactory abstractFactory = FactoryProvider.getFactory(ReportType.WEEKLY);
-        Report report =  abstractFactory.getReport(ReportType.WEEKLY);
+
+        Report report;
+        if (excess==1)
+            report =  new RedDecorator(abstractFactory.getReport(ReportType.WEEKLY));
+        else
+            report =  new GreenDecorator(abstractFactory.getReport(ReportType.WEEKLY));
+
         StringObj stringObj = new StringObj(report.computeReport(login));
         return stringObj;
     }
 
     @Transactional
-    public StringObj generateMonthlyReport(int id){
+    public StringObj generateMonthlyReport(int excess, int id){
         Login login = loginRepository.findById(id);
         AbstractFactory abstractFactory = FactoryProvider.getFactory(ReportType.MONTHLY);
-        Report report =  abstractFactory.getReport(ReportType.MONTHLY);
+
+        Report report;
+        if (excess==1)
+            report =  new RedDecorator(abstractFactory.getReport(ReportType.MONTHLY));
+        else
+            report =  new GreenDecorator(abstractFactory.getReport(ReportType.MONTHLY));
+
         StringObj stringObj = new StringObj(report.computeReport(login));
         return stringObj;
     }

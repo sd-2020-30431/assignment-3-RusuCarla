@@ -61,7 +61,7 @@ export class MenuComponent implements OnInit {
       })
     };
 
-    this.http.post<StringObjModel>('http://localhost:8080/users/weeklyReport', this.goal, httpOptions).subscribe(
+    this.http.post<StringObjModel>('http://localhost:8080/users/weeklyReport', this.observer.excess, httpOptions).subscribe(
       result => {
         this.stringObj = result;
         console.log(result);
@@ -79,7 +79,7 @@ export class MenuComponent implements OnInit {
       })
     };
 
-    this.http.post<StringObjModel>('http://localhost:8080/users/monthlyReport', this.goal, httpOptions).subscribe(
+    this.http.post<StringObjModel>('http://localhost:8080/users/monthlyReport', this.observer.excess, httpOptions).subscribe(
       result => {
         this.stringObj = result;
         console.log(result);

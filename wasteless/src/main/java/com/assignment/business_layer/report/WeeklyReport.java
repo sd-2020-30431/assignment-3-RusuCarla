@@ -36,7 +36,7 @@ public class WeeklyReport implements Report {
 
         }
 
-        String content = "User: " + login.getUsername() + "\n"
+        String content = "  User: " + login.getUsername() + "\n"
                 + " Weekly report" + "\n"
                 + " Goal: " + login.getGoal() + "\n"
                 + " Number of groceries purchased in the last week: " + countPurchased + "\n"

@@ -36,7 +36,7 @@ public class MonthlyReport implements Report{
 
         }
 
-        String content = "User: " + login.getUsername() + "\n"
+        String content = "  User: " + login.getUsername() + "\n"
                 + " Monthly report" + "\n"
                 + " Goal: " + login.getGoal() + "\n"
                 + " Number of groceries purchased in the last month: " + countPurchased + "\n"
