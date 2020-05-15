@@ -25,6 +25,9 @@ export class MenuComponent implements OnInit {
   stringObj: StringObjModel = new StringObjModel();
   observer: ConcreteObserver = new ConcreteObserver();
   subject: ConcreteSubject = new ConcreteSubject();
+  green: 'Not wasting groceries!';
+  red: 'Wasting groceries!';
+  color: string;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -64,6 +67,12 @@ export class MenuComponent implements OnInit {
     this.http.post<StringObjModel>('http://localhost:8080/users/weeklyReport', this.observer.excess, httpOptions).subscribe(
       result => {
         this.stringObj = result;
+        if (result.msg.substr(0, 3) === 'Not') {
+          this.color = 'green';
+        }
+        else {
+          this.color = 'red';
+        }
         console.log(result);
       },
       error => {
@@ -82,6 +91,12 @@ export class MenuComponent implements OnInit {
     this.http.post<StringObjModel>('http://localhost:8080/users/monthlyReport', this.observer.excess, httpOptions).subscribe(
       result => {
         this.stringObj = result;
+        if (result.msg.substr(0, 3) === 'Not') {
+          this.color = 'green';
+        }
+        else {
+          this.color = 'red';
+        }
         console.log(result);
       },
       error => {

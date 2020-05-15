@@ -37,13 +37,13 @@ public class WeeklyReport implements Report {
         }
 
         String content = "  User: " + login.getUsername() + "\n"
-                + " Weekly report" + "\n"
-                + " Goal: " + login.getGoal() + "\n"
-                + " Number of groceries purchased in the last week: " + countPurchased + "\n"
-                + " Number of groceries consumed in the last week: " + countConsumed + "\n"
-                + " Number of groceries expired in the last week: " + countExpired + "\n"
-                + " Number of calories consumed in the last week: " + caloriesConsumed + "\n"
-                + " Number of calories wasted in the last week: " + caloriesWasted + "\n";
+                + "  Weekly report" + "\n"
+                + "  Goal: " + login.getGoal() + "\n"
+                + "  Number of groceries purchased in the last week: " + countPurchased + "\n"
+                + "  Number of groceries consumed in the last week: " + countConsumed + "\n"
+                + "  Number of groceries expired in the last week: " + countExpired + "\n"
+                + "  Number of calories consumed in the last week: " + caloriesConsumed + "\n"
+                + "  Number of calories wasted in the last week: " + caloriesWasted + "\n";
 
         return content;
     }

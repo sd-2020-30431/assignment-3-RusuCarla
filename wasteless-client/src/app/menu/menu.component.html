@@ -123,9 +123,16 @@
 
     <div class=indent>
       <h2>
-        <pre class=border *ngIf="stringObj!==null">
-          {{stringObj.msg}}
-        </pre>
+        <div *ngIf="this.color === 'green'">
+          <pre class="green" *ngIf="stringObj!==null">
+            {{stringObj.msg}}
+          </pre>
+        </div>
+        <div *ngIf="this.color === 'red'">
+          <pre class="red" *ngIf="stringObj!==null">
+            {{stringObj.msg}}
+          </pre>
+        </div>
       </h2>
     </div>
   </div>

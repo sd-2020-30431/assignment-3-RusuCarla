@@ -37,13 +37,13 @@ public class MonthlyReport implements Report{
         }
 
         String content = "  User: " + login.getUsername() + "\n"
-                + " Monthly report" + "\n"
-                + " Goal: " + login.getGoal() + "\n"
-                + " Number of groceries purchased in the last month: " + countPurchased + "\n"
-                + " Number of groceries consumed in the last month: " + countConsumed + "\n"
-                + " Number of groceries expired in the last month: " + countExpired + "\n"
-                + " Number of calories consumed in the last month: " + caloriesConsumed + "\n"
-                + " Number of calories wasted in the last month: " + caloriesWasted + "\n";
+                + "  Monthly report" + "\n"
+                + "  Goal: " + login.getGoal() + "\n"
+                + "  Number of groceries purchased in the last month: " + countPurchased + "\n"
+                + "  Number of groceries consumed in the last month: " + countConsumed + "\n"
+                + "  Number of groceries expired in the last month: " + countExpired + "\n"
+                + "  Number of calories consumed in the last month: " + caloriesConsumed + "\n"
+                + "  Number of calories wasted in the last month: " + caloriesWasted + "\n";
 
         return content;
     };

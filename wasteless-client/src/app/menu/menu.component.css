@@ -145,3 +145,19 @@ h3 {
   color: #fff;
   text-decoration: none;
 }
+
+.green{
+  color:mediumseagreen;
+  border: 2px solid;
+  border-radius: 0.25rem;
+  border-color: mediumseagreen;
+  width: 70%;
+}
+
+.red{
+  color:crimson;
+  border: 2px solid;
+  border-radius: 0.25rem;
+  border-color: crimson;
+  width: 70%;
+}
