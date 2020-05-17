@@ -2,7 +2,6 @@ package com.assignment.business_layer.mediator.handler.commandHandler;
 
 import com.assignment.business_layer.mediator.handler.IHandler;
 import com.assignment.business_layer.mediator.request.command.MonthlyReportCommand;
-import com.assignment.business_layer.mediator.request.command.WeeklyReportCommand;
 import com.assignment.business_layer.mediator.response.commandResponse.GenerateReportResponse;
 import com.assignment.business_layer.services.command.UserCommandService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,10 +1,16 @@
 package com.assignment.presentation_layer.controller;
 
 import com.assignment.business_layer.mediator.Mediator;
+import com.assignment.business_layer.mediator.handler.commandHandler.AddConsumptionDateHandler;
+import com.assignment.business_layer.mediator.handler.commandHandler.AddGroceriesHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.GetBurndownRatesHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.GetGroceriesHandler;
+import com.assignment.business_layer.mediator.request.command.AddConsumptionDateCommand;
+import com.assignment.business_layer.mediator.request.command.AddGroceriesCommand;
 import com.assignment.business_layer.mediator.request.query.GetBurndownRatesQuery;
 import com.assignment.business_layer.mediator.request.query.GetGroceriesQuery;
+import com.assignment.business_layer.mediator.response.commandResponse.AddConsumptionDateResponse;
+import com.assignment.business_layer.mediator.response.commandResponse.AddGroceriesResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.GetBurndownRatesResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.GetGroceriesResponse;
 import com.assignment.presentation_layer.dto.*;
@@ -32,7 +38,12 @@ public class GroceriesController {
         if (!Validator.validateGroceriesDto(groceriesDto))
             return new ResponseEntity<>(new StringObj("ERROR: INPUT ERROR"), HttpStatus.INTERNAL_SERVER_ERROR);
 
-        groceriesService.addGroceries(groceriesDto, Integer.parseInt(id));
+        //groceriesService.addGroceries(groceriesDto, Integer.parseInt(id));
+
+        AddGroceriesCommand addGroceriesCommand = new AddGroceriesCommand(groceriesDto, Integer.parseInt(id));
+        AddGroceriesHandler addGroceriesHandler = (AddGroceriesHandler)mediator.<AddGroceriesCommand, AddGroceriesResponse>getHandler(addGroceriesCommand);
+        AddGroceriesResponse addGroceriesResponse = addGroceriesHandler.handle(addGroceriesCommand);
+
         return new ResponseEntity<>(new StringObj("SUCCESS: ADDED GROCERY"), HttpStatus.OK);
     }
 
@@ -41,7 +52,14 @@ public class GroceriesController {
         if (!Validator.validateConsumptionDto(consumptionDto))
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        groceriesService.addConsumptionDate(consumptionDto, Integer.parseInt(id));
+        //groceriesService.addConsumptionDate(consumptionDto, Integer.parseInt(id));
+
+        AddConsumptionDateCommand addConsumptionDateCommand = new AddConsumptionDateCommand(consumptionDto, Integer.parseInt(id));
+        AddConsumptionDateHandler addConsumptionDateHandler = (AddConsumptionDateHandler)mediator.<AddConsumptionDateCommand, AddConsumptionDateResponse>getHandler(addConsumptionDateCommand);
+        AddConsumptionDateResponse addConsumptionDateResponse = addConsumptionDateHandler.handle(addConsumptionDateCommand);
+
+        System.out.println("ALL GOOD "+ addConsumptionDateResponse.getResult());
+
         return new ResponseEntity( HttpStatus.OK);
     }
 

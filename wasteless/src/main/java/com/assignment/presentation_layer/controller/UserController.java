@@ -1,16 +1,21 @@
 package com.assignment.presentation_layer.controller;
 
 import com.assignment.business_layer.mediator.Mediator;
+import com.assignment.business_layer.mediator.handler.commandHandler.MonthlyReportHandler;
 import com.assignment.business_layer.mediator.handler.commandHandler.SetGoalHandler;
+import com.assignment.business_layer.mediator.handler.commandHandler.WeeklyReportHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LoginHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LogoutHandler;
 import com.assignment.business_layer.mediator.handler.commandHandler.RegisterHandler;
+import com.assignment.business_layer.mediator.request.command.MonthlyReportCommand;
 import com.assignment.business_layer.mediator.request.command.RegisterCommand;
 import com.assignment.business_layer.mediator.request.command.SetGoalCommand;
+import com.assignment.business_layer.mediator.request.command.WeeklyReportCommand;
 import com.assignment.business_layer.mediator.request.query.FindByIdQuery;
 import com.assignment.business_layer.mediator.request.query.LoginQuery;
 import com.assignment.business_layer.mediator.request.query.LogoutQuery;
+import com.assignment.business_layer.mediator.response.commandResponse.GenerateReportResponse;
 import com.assignment.business_layer.mediator.response.commandResponse.RegisterResponse;
 import com.assignment.business_layer.mediator.response.commandResponse.SetGoalResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.FindByIdResponse;
@@ -111,13 +116,23 @@ public class UserController {
 
     @PostMapping(value = "/weeklyReport")
     public ResponseEntity<StringObj> weeklyReport(@RequestBody Integer excess, @RequestHeader("userId") String id) {
-        StringObj stringObj = userService.generateWeeklyReport(excess, Integer.parseInt(id));
-        return new ResponseEntity(stringObj, HttpStatus.OK);
+        //StringObj stringObj = userService.generateWeeklyReport(excess, Integer.parseInt(id));
+
+        WeeklyReportCommand weeklyReportCommand = new WeeklyReportCommand(excess, Integer.parseInt(id));
+        WeeklyReportHandler weeklyReportHandler = (WeeklyReportHandler)mediator.<WeeklyReportCommand, GenerateReportResponse>getHandler(weeklyReportCommand);
+        GenerateReportResponse generateReportResponse = weeklyReportHandler.handle(weeklyReportCommand);
+
+        return new ResponseEntity(generateReportResponse.getStringObj(), HttpStatus.OK);
     }
 
     @PostMapping(value = "/monthlyReport")
     public ResponseEntity<StringObj> monthlyReport(@RequestBody Integer excess, @RequestHeader("userId") String id) {
-        StringObj stringObj = userService.generateMonthlyReport(excess, Integer.parseInt(id));
-        return new ResponseEntity(stringObj, HttpStatus.OK);
+        //StringObj stringObj = userService.generateMonthlyReport(excess, Integer.parseInt(id));
+
+        MonthlyReportCommand monthlyReportCommand = new MonthlyReportCommand(excess, Integer.parseInt(id));
+        MonthlyReportHandler monthlyReportHandler = (MonthlyReportHandler)mediator.<MonthlyReportCommand, GenerateReportResponse>getHandler(monthlyReportCommand);
+        GenerateReportResponse generateReportResponse = monthlyReportHandler.handle(monthlyReportCommand);
+
+        return new ResponseEntity(generateReportResponse.getStringObj(), HttpStatus.OK);
     }
 }

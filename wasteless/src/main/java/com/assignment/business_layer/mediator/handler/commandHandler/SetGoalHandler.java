@@ -1,9 +1,7 @@
 package com.assignment.business_layer.mediator.handler.commandHandler;
 
 import com.assignment.business_layer.mediator.handler.IHandler;
-import com.assignment.business_layer.mediator.request.command.RegisterCommand;
 import com.assignment.business_layer.mediator.request.command.SetGoalCommand;
-import com.assignment.business_layer.mediator.response.commandResponse.RegisterResponse;
 import com.assignment.business_layer.mediator.response.commandResponse.SetGoalResponse;
 import com.assignment.business_layer.services.command.UserCommandService;
 import org.springframework.beans.factory.annotation.Autowired;
