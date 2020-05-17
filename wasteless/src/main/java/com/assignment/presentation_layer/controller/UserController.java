@@ -1,9 +1,15 @@
 package com.assignment.presentation_layer.controller;
 
 import com.assignment.business_layer.mediator.Mediator;
+import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdQueryHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LoginQueryHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.LogoutQueryHandler;
+import com.assignment.business_layer.mediator.request.query.FindByIdQuery;
 import com.assignment.business_layer.mediator.request.query.LoginQuery;
+import com.assignment.business_layer.mediator.request.query.LogoutQuery;
+import com.assignment.business_layer.mediator.response.queryResponse.FindByIdQueryResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.LoginQueryResponse;
+import com.assignment.business_layer.mediator.response.queryResponse.LogoutQueryResponse;
 import com.assignment.presentation_layer.dto.*;
 import com.assignment.business_layer.services.UserService;
 import com.assignment.utilities.validators.Validator;
@@ -57,7 +63,12 @@ public class UserController {
 
     @GetMapping(value = "/logout")
     public ResponseEntity<String> logout(@RequestHeader("id") Integer id) {
-        userService.logout(id);
+        //userService.logout(id);
+
+        LogoutQuery logoutQuery = new LogoutQuery(id);
+        LogoutQueryHandler logoutQueryHandler = (LogoutQueryHandler)mediator.<LogoutQuery, LogoutQueryResponse>getHandler(logoutQuery);
+        LogoutQueryResponse logoutQueryResponse = logoutQueryHandler.handle(logoutQuery);
+
         return new ResponseEntity<>("SUCCESS: LOGGED OUT", HttpStatus.OK);
     }
 
@@ -72,7 +83,13 @@ public class UserController {
 
     @GetMapping(value = "/getGoal")
     public ResponseEntity<LoginDto> getGoal(@RequestHeader("userId") String id) {
-        LoginDto loginDto = userService.findById(Integer.parseInt(id));
+        //LoginDto loginDto = userService.findById(Integer.parseInt(id));
+
+        FindByIdQuery findByIdQuery = new FindByIdQuery(Integer.parseInt(id));
+        FindByIdQueryHandler findByIdQueryHandler = (FindByIdQueryHandler) mediator.<FindByIdQuery, FindByIdQueryResponse>getHandler(findByIdQuery);
+        FindByIdQueryResponse findByIdQueryResponse = findByIdQueryHandler.handle(findByIdQuery);
+        LoginDto loginDto = findByIdQueryResponse.getLoginDto();
+
         return new ResponseEntity(loginDto, HttpStatus.OK);
     }
 

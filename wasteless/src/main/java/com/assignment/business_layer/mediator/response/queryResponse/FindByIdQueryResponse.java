@@ -1,13 +1,13 @@
-package com.assignment.business_layer.mediator.request.query;
+package com.assignment.business_layer.mediator.response.queryResponse;
 
-import com.assignment.business_layer.mediator.request.TRequest;
+import com.assignment.business_layer.mediator.response.TResponse;
 import com.assignment.presentation_layer.dto.LoginDto;
 
-public class LoginQuery implements TRequest {
+public class FindByIdQueryResponse implements TResponse {
 
     LoginDto loginDto;
 
-    public LoginQuery(LoginDto loginDto) {
+    public FindByIdQueryResponse(LoginDto loginDto) {
         this.loginDto = loginDto;
     }
 

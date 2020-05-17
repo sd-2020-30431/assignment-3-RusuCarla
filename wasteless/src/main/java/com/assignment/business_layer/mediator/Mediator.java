@@ -1,9 +1,13 @@
 package com.assignment.business_layer.mediator;
 
 import com.assignment.business_layer.mediator.handler.IHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdQueryHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LoginQueryHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.LogoutQueryHandler;
 import com.assignment.business_layer.mediator.request.TRequest;
+import com.assignment.business_layer.mediator.request.query.FindByIdQuery;
 import com.assignment.business_layer.mediator.request.query.LoginQuery;
+import com.assignment.business_layer.mediator.request.query.LogoutQuery;
 import com.assignment.business_layer.mediator.response.TResponse;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -23,6 +27,8 @@ public class Mediator implements ApplicationContextAware {
         this._handlerMap = new HashMap<>();
 
         _handlerMap.put(LoginQuery.class, LoginQueryHandler.class);
+        _handlerMap.put(FindByIdQuery.class, FindByIdQueryHandler.class);
+        _handlerMap.put(LogoutQuery.class, LogoutQueryHandler.class);
     }
 
     @Override
