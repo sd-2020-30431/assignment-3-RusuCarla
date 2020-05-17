@@ -1,15 +1,18 @@
 package com.assignment.presentation_layer.controller;
 
 import com.assignment.business_layer.mediator.Mediator;
+import com.assignment.business_layer.mediator.handler.commandHandler.SetGoalHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LoginHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LogoutHandler;
-import com.assignment.business_layer.mediator.handler.queryHandler.RegisterHandler;
+import com.assignment.business_layer.mediator.handler.commandHandler.RegisterHandler;
 import com.assignment.business_layer.mediator.request.command.RegisterCommand;
+import com.assignment.business_layer.mediator.request.command.SetGoalCommand;
 import com.assignment.business_layer.mediator.request.query.FindByIdQuery;
 import com.assignment.business_layer.mediator.request.query.LoginQuery;
 import com.assignment.business_layer.mediator.request.query.LogoutQuery;
 import com.assignment.business_layer.mediator.response.commandResponse.RegisterResponse;
+import com.assignment.business_layer.mediator.response.commandResponse.SetGoalResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.FindByIdResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.LoginResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.LogoutResponse;
@@ -85,7 +88,12 @@ public class UserController {
         if (!Validator.validateGoal(goal))
             return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        userService.setGoal(Integer.parseInt(id), goal);
+        //userService.setGoal(Integer.parseInt(id), goal);
+
+        SetGoalCommand setGoalCommand = new SetGoalCommand(Integer.parseInt(id), goal);
+        SetGoalHandler setGoalHandler = (SetGoalHandler)mediator.<SetGoalCommand, SetGoalResponse>getHandler(setGoalCommand);
+        SetGoalResponse setGoalResponse = setGoalHandler.handle(setGoalCommand);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 

@@ -1,4 +1,4 @@
-package com.assignment.business_layer.mediator.handler.queryHandler;
+package com.assignment.business_layer.mediator.handler.commandHandler;
 
 import com.assignment.business_layer.mediator.handler.IHandler;
 import com.assignment.business_layer.mediator.request.command.RegisterCommand;

@@ -1,9 +1,16 @@
 package com.assignment.business_layer.mediator;
 
 import com.assignment.business_layer.mediator.handler.IHandler;
+import com.assignment.business_layer.mediator.handler.commandHandler.MonthlyReportHandler;
+import com.assignment.business_layer.mediator.handler.commandHandler.RegisterHandler;
+import com.assignment.business_layer.mediator.handler.commandHandler.SetGoalHandler;
+import com.assignment.business_layer.mediator.handler.commandHandler.WeeklyReportHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.*;
 import com.assignment.business_layer.mediator.request.TRequest;
+import com.assignment.business_layer.mediator.request.command.MonthlyReportCommand;
+import com.assignment.business_layer.mediator.request.command.WeeklyReportCommand;
 import com.assignment.business_layer.mediator.request.command.RegisterCommand;
+import com.assignment.business_layer.mediator.request.command.SetGoalCommand;
 import com.assignment.business_layer.mediator.request.query.*;
 import com.assignment.business_layer.mediator.response.TResponse;
 import org.springframework.beans.BeansException;
@@ -30,6 +37,9 @@ public class Mediator implements ApplicationContextAware {
         _handlerMap.put(GetBurndownRatesQuery.class, GetBurndownRatesHandler.class);
 
         _handlerMap.put(RegisterCommand.class, RegisterHandler.class);
+        _handlerMap.put(SetGoalCommand.class, SetGoalHandler.class);
+        _handlerMap.put(WeeklyReportCommand.class, WeeklyReportHandler.class);
+        _handlerMap.put(MonthlyReportCommand.class, MonthlyReportHandler.class);
     }
 
     @Override
