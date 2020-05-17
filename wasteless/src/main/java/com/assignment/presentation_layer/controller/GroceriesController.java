@@ -1,8 +1,11 @@
 package com.assignment.presentation_layer.controller;
 
 import com.assignment.business_layer.mediator.Mediator;
+import com.assignment.business_layer.mediator.handler.queryHandler.GetBurndownRatesHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.GetGroceriesHandler;
+import com.assignment.business_layer.mediator.request.query.GetBurndownRatesQuery;
 import com.assignment.business_layer.mediator.request.query.GetGroceriesQuery;
+import com.assignment.business_layer.mediator.response.queryResponse.GetBurndownRatesResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.GetGroceriesResponse;
 import com.assignment.presentation_layer.dto.*;
 import com.assignment.business_layer.services.GroceriesService;
@@ -55,7 +58,12 @@ public class GroceriesController {
 
     @GetMapping(value = "/burndownRate")
     public ResponseEntity<ArrayList<Integer>> burndownRate(@RequestHeader("userId") String id) {
-        ArrayList<Integer> rates = groceriesService.getBurndownRates(Integer.parseInt(id));
-        return new ResponseEntity<>(rates, HttpStatus.OK);
+        //ArrayList<Integer> rates = groceriesService.getBurndownRates(Integer.parseInt(id));
+
+        GetBurndownRatesQuery getBurndownRatesQuery = new GetBurndownRatesQuery(Integer.parseInt(id));
+        GetBurndownRatesHandler getBurndownRatesHandler = (GetBurndownRatesHandler)mediator.<GetBurndownRatesQuery, GetBurndownRatesResponse>getHandler(getBurndownRatesQuery);
+        GetBurndownRatesResponse getBurndownRatesResponse = getBurndownRatesHandler.handle(getBurndownRatesQuery);
+
+        return new ResponseEntity<>(getBurndownRatesResponse.getBurndownRates(), HttpStatus.OK);
     }
 }

@@ -4,9 +4,12 @@ import com.assignment.business_layer.mediator.Mediator;
 import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LoginHandler;
 import com.assignment.business_layer.mediator.handler.queryHandler.LogoutHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.RegisterHandler;
+import com.assignment.business_layer.mediator.request.command.RegisterCommand;
 import com.assignment.business_layer.mediator.request.query.FindByIdQuery;
 import com.assignment.business_layer.mediator.request.query.LoginQuery;
 import com.assignment.business_layer.mediator.request.query.LogoutQuery;
+import com.assignment.business_layer.mediator.response.commandResponse.RegisterResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.FindByIdResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.LoginResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.LogoutResponse;
@@ -32,7 +35,12 @@ public class UserController {
     public ResponseEntity<StringObj> register(@RequestBody LoginDto loginDto) {
         if (Validator.validateLoginDto(loginDto)) {
             System.out.println(loginDto);
-            switch (userService.register(loginDto)) {
+
+            RegisterCommand registerCommand = new RegisterCommand(loginDto);
+            RegisterHandler registerHandler = (RegisterHandler)mediator.<RegisterCommand, RegisterResponse>getHandler(registerCommand);
+            RegisterResponse registerResponse = registerHandler.handle(registerCommand);
+
+            switch (registerResponse.getId()) {
                 case 0:
                     return new ResponseEntity<>(new StringObj("SUCCESS : USER REGISTERED"), HttpStatus.OK);
                 case -1:
