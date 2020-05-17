@@ -22,7 +22,6 @@ import com.assignment.business_layer.mediator.response.queryResponse.FindByIdRes
 import com.assignment.business_layer.mediator.response.queryResponse.LoginResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.LogoutResponse;
 import com.assignment.presentation_layer.dto.*;
-import com.assignment.business_layer.services.UserService;
 import com.assignment.utilities.validators.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,8 +32,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/users")
 public class UserController {
 
-    @Autowired
-    UserService userService;
+    //@Autowired
+    //UserService userService;
 
     @Autowired
     Mediator mediator;

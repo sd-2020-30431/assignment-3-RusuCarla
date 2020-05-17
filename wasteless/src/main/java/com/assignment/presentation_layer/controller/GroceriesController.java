@@ -14,7 +14,6 @@ import com.assignment.business_layer.mediator.response.commandResponse.AddGrocer
 import com.assignment.business_layer.mediator.response.queryResponse.GetBurndownRatesResponse;
 import com.assignment.business_layer.mediator.response.queryResponse.GetGroceriesResponse;
 import com.assignment.presentation_layer.dto.*;
-import com.assignment.business_layer.services.GroceriesService;
 import com.assignment.utilities.validators.Validator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,8 +26,8 @@ import java.util.ArrayList;
 @RequestMapping(value = "/groceries")
 public class GroceriesController {
 
-    @Autowired
-    GroceriesService groceriesService;
+    //@Autowired
+    //GroceriesService groceriesService;
 
     @Autowired
     Mediator mediator;
