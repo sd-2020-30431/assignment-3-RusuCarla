@@ -1,5 +1,9 @@
 package com.assignment.presentation_layer.controller;
 
+import com.assignment.business_layer.mediator.Mediator;
+import com.assignment.business_layer.mediator.handler.queryHandler.LoginQueryHandler;
+import com.assignment.business_layer.mediator.request.query.LoginQuery;
+import com.assignment.business_layer.mediator.response.queryResponse.LoginQueryResponse;
 import com.assignment.presentation_layer.dto.*;
 import com.assignment.business_layer.services.UserService;
 import com.assignment.utilities.validators.Validator;
@@ -14,6 +18,9 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    Mediator mediator;
 
     @PostMapping(value = "/register")
     public ResponseEntity<StringObj> register(@RequestBody LoginDto loginDto) {
@@ -36,7 +43,13 @@ public class UserController {
         System.out.println(loginDto);
         if (!Validator.validateLoginDto(loginDto))
             return new ResponseEntity<>(-1, HttpStatus.INTERNAL_SERVER_ERROR);
-        Integer id = userService.login(loginDto);
+        //Integer id = userService.login(loginDto);
+
+        LoginQuery loginQuery = new LoginQuery(loginDto);
+        LoginQueryHandler loginQueryHandler = (LoginQueryHandler) mediator.<LoginQuery, LoginQueryResponse>getHandler(loginQuery);
+        LoginQueryResponse loginQueryResponse = loginQueryHandler.handle(loginQuery);
+        Integer id = loginQueryResponse.getInteger();
+
         if (id == null)
             return new ResponseEntity<>(id, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(id, HttpStatus.OK);
