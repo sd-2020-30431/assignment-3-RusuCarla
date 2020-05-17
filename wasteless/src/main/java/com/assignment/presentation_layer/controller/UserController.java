@@ -1,15 +1,15 @@
 package com.assignment.presentation_layer.controller;
 
 import com.assignment.business_layer.mediator.Mediator;
-import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdQueryHandler;
-import com.assignment.business_layer.mediator.handler.queryHandler.LoginQueryHandler;
-import com.assignment.business_layer.mediator.handler.queryHandler.LogoutQueryHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.LoginHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.LogoutHandler;
 import com.assignment.business_layer.mediator.request.query.FindByIdQuery;
 import com.assignment.business_layer.mediator.request.query.LoginQuery;
 import com.assignment.business_layer.mediator.request.query.LogoutQuery;
-import com.assignment.business_layer.mediator.response.queryResponse.FindByIdQueryResponse;
-import com.assignment.business_layer.mediator.response.queryResponse.LoginQueryResponse;
-import com.assignment.business_layer.mediator.response.queryResponse.LogoutQueryResponse;
+import com.assignment.business_layer.mediator.response.queryResponse.FindByIdResponse;
+import com.assignment.business_layer.mediator.response.queryResponse.LoginResponse;
+import com.assignment.business_layer.mediator.response.queryResponse.LogoutResponse;
 import com.assignment.presentation_layer.dto.*;
 import com.assignment.business_layer.services.UserService;
 import com.assignment.utilities.validators.Validator;
@@ -52,8 +52,8 @@ public class UserController {
         //Integer id = userService.login(loginDto);
 
         LoginQuery loginQuery = new LoginQuery(loginDto);
-        LoginQueryHandler loginQueryHandler = (LoginQueryHandler) mediator.<LoginQuery, LoginQueryResponse>getHandler(loginQuery);
-        LoginQueryResponse loginQueryResponse = loginQueryHandler.handle(loginQuery);
+        LoginHandler loginQueryHandler = (LoginHandler) mediator.<LoginQuery, LoginResponse>getHandler(loginQuery);
+        LoginResponse loginQueryResponse = loginQueryHandler.handle(loginQuery);
         Integer id = loginQueryResponse.getInteger();
 
         if (id == null)
@@ -66,8 +66,8 @@ public class UserController {
         //userService.logout(id);
 
         LogoutQuery logoutQuery = new LogoutQuery(id);
-        LogoutQueryHandler logoutQueryHandler = (LogoutQueryHandler)mediator.<LogoutQuery, LogoutQueryResponse>getHandler(logoutQuery);
-        LogoutQueryResponse logoutQueryResponse = logoutQueryHandler.handle(logoutQuery);
+        LogoutHandler logoutQueryHandler = (LogoutHandler)mediator.<LogoutQuery, LogoutResponse>getHandler(logoutQuery);
+        LogoutResponse logoutQueryResponse = logoutQueryHandler.handle(logoutQuery);
 
         return new ResponseEntity<>("SUCCESS: LOGGED OUT", HttpStatus.OK);
     }
@@ -86,8 +86,8 @@ public class UserController {
         //LoginDto loginDto = userService.findById(Integer.parseInt(id));
 
         FindByIdQuery findByIdQuery = new FindByIdQuery(Integer.parseInt(id));
-        FindByIdQueryHandler findByIdQueryHandler = (FindByIdQueryHandler) mediator.<FindByIdQuery, FindByIdQueryResponse>getHandler(findByIdQuery);
-        FindByIdQueryResponse findByIdQueryResponse = findByIdQueryHandler.handle(findByIdQuery);
+        FindByIdHandler findByIdQueryHandler = (FindByIdHandler) mediator.<FindByIdQuery, FindByIdResponse>getHandler(findByIdQuery);
+        FindByIdResponse findByIdQueryResponse = findByIdQueryHandler.handle(findByIdQuery);
         LoginDto loginDto = findByIdQueryResponse.getLoginDto();
 
         return new ResponseEntity(loginDto, HttpStatus.OK);

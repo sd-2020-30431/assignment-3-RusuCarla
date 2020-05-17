@@ -1,11 +1,13 @@
 package com.assignment.business_layer.mediator;
 
 import com.assignment.business_layer.mediator.handler.IHandler;
-import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdQueryHandler;
-import com.assignment.business_layer.mediator.handler.queryHandler.LoginQueryHandler;
-import com.assignment.business_layer.mediator.handler.queryHandler.LogoutQueryHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.FindByIdHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.GetGroceriesHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.LoginHandler;
+import com.assignment.business_layer.mediator.handler.queryHandler.LogoutHandler;
 import com.assignment.business_layer.mediator.request.TRequest;
 import com.assignment.business_layer.mediator.request.query.FindByIdQuery;
+import com.assignment.business_layer.mediator.request.query.GetGroceriesQuery;
 import com.assignment.business_layer.mediator.request.query.LoginQuery;
 import com.assignment.business_layer.mediator.request.query.LogoutQuery;
 import com.assignment.business_layer.mediator.response.TResponse;
@@ -26,9 +28,10 @@ public class Mediator implements ApplicationContextAware {
     public Mediator(){
         this._handlerMap = new HashMap<>();
 
-        _handlerMap.put(LoginQuery.class, LoginQueryHandler.class);
-        _handlerMap.put(FindByIdQuery.class, FindByIdQueryHandler.class);
-        _handlerMap.put(LogoutQuery.class, LogoutQueryHandler.class);
+        _handlerMap.put(LoginQuery.class, LoginHandler.class);
+        _handlerMap.put(FindByIdQuery.class, FindByIdHandler.class);
+        _handlerMap.put(LogoutQuery.class, LogoutHandler.class);
+        _handlerMap.put(GetGroceriesQuery.class, GetGroceriesHandler.class);
     }
 
     @Override

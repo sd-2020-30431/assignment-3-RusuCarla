@@ -2,11 +2,11 @@ package com.assignment.business_layer.mediator.response.queryResponse;
 
 import com.assignment.business_layer.mediator.response.TResponse;
 
-public class LoginQueryResponse implements TResponse {
+public class LoginResponse implements TResponse {
 
     Integer integer;
 
-    public LoginQueryResponse(Integer integer) {
+    public LoginResponse(Integer integer) {
         this.integer = integer;
     }
 

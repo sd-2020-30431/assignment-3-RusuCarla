@@ -1,5 +1,9 @@
 package com.assignment.presentation_layer.controller;
 
+import com.assignment.business_layer.mediator.Mediator;
+import com.assignment.business_layer.mediator.handler.queryHandler.GetGroceriesHandler;
+import com.assignment.business_layer.mediator.request.query.GetGroceriesQuery;
+import com.assignment.business_layer.mediator.response.queryResponse.GetGroceriesResponse;
 import com.assignment.presentation_layer.dto.*;
 import com.assignment.business_layer.services.GroceriesService;
 import com.assignment.utilities.validators.Validator;
@@ -16,6 +20,9 @@ public class GroceriesController {
 
     @Autowired
     GroceriesService groceriesService;
+
+    @Autowired
+    Mediator mediator;
 
     @PostMapping(value = "/addGrocery")
     public ResponseEntity<StringObj> addGrocery(@RequestBody GroceriesDto groceriesDto, @RequestHeader("userId") String id) {
@@ -37,8 +44,13 @@ public class GroceriesController {
 
     @GetMapping(value = "/getGroceries")
     public ResponseEntity<ArrayList<GroceriesDto>> getCustomers(@RequestHeader("userId") String id) {
-        ArrayList<GroceriesDto> groceriesDtos = groceriesService.getGroceries(Integer.parseInt(id));
-        return new ResponseEntity<>(groceriesDtos, HttpStatus.OK);
+        //ArrayList<GroceriesDto> groceriesDtos = groceriesService.getGroceries(Integer.parseInt(id));
+
+        GetGroceriesQuery getGroceriesQuery = new GetGroceriesQuery(Integer.parseInt(id));
+        GetGroceriesHandler getGroceriesHandler = (GetGroceriesHandler)mediator.<GetGroceriesQuery, GetGroceriesResponse>getHandler(getGroceriesQuery);
+        GetGroceriesResponse getGroceriesResponse = getGroceriesHandler.handle(getGroceriesQuery);
+
+        return new ResponseEntity<>(getGroceriesResponse.getGroceriesDtos(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/burndownRate")

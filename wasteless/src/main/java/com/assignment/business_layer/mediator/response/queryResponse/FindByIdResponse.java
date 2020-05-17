@@ -3,11 +3,11 @@ package com.assignment.business_layer.mediator.response.queryResponse;
 import com.assignment.business_layer.mediator.response.TResponse;
 import com.assignment.presentation_layer.dto.LoginDto;
 
-public class FindByIdQueryResponse implements TResponse {
+public class FindByIdResponse implements TResponse {
 
     LoginDto loginDto;
 
-    public FindByIdQueryResponse(LoginDto loginDto) {
+    public FindByIdResponse(LoginDto loginDto) {
         this.loginDto = loginDto;
     }
 
